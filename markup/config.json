@@ -33,6 +33,9 @@
     },
     "images": {
       "src": "images"
+    },
+    "posts": {
+      "src": "posts"
     }
   },
   "browsersync": {

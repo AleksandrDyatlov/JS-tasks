@@ -1,1 +1,18 @@
-@use 'tailwindcss';
+@import 'tailwindcss';
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 min-h-screen;
+  }
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  //
+}
+
+@layer utilities {
+  //
+}

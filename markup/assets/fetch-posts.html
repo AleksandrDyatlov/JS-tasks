@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Posts Feed</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="max-w-5xl mx-auto px-4 py-10">
+      <header class="mb-8">
+        <h1 class="text-3xl font-bold mb-6">Posts Feed</h1>
+
+        <nav class="flex flex-wrap gap-2" aria-label="Post categories">
+          <button
+            class="filters__btn px-4 py-2 rounded-full text-sm font-medium border border-gray-300 bg-white hover:bg-gray-100 transition-colors [&.active]:bg-indigo-600 [&.active]:border-indigo-600 [&.active]:text-white disabled:pointer-events-none"
+            data-category="design"
+            aria-pressed="false"
+          >
+            Design
+          </button>
+          <button
+            class="filters__btn px-4 py-2 rounded-full text-sm font-medium border border-gray-300 bg-white hover:bg-gray-100 transition-colors [&.active]:bg-emerald-600 [&.active]:border-emerald-600 [&.active]:text-white disabled:pointer-events-none"
+            data-category="technology"
+            aria-pressed="false"
+          >
+            Technology
+          </button>
+          <button
+            class="filters__btn px-4 py-2 rounded-full text-sm font-medium border border-gray-300 bg-white hover:bg-gray-100 transition-colors [&.active]:bg-violet-600 [&.active]:border-violet-600 [&.active]:text-white disabled:pointer-events-none"
+            data-category="science"
+            aria-pressed="false"
+          >
+            Science
+          </button>
+        </nav>
+      </header>
+
+      <main id="main">
+        <div id="loading" class="hidden flex items-center justify-center gap-3 text-gray-500 py-10">
+          <svg class="animate-spin h-5 w-5 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+          </svg>
+          <span>Loading...</span>
+        </div>
+
+        <div id="error" class="hidden text-red-500 py-10 text-center">Failed to load posts.</div>
+
+        <div id="posts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" aria-live="polite">
+          <article class="post-card bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col gap-3 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between text-xs text-gray-400">
+              <span class="bg-indigo-50 text-indigo-600 font-medium px-2 py-0.5 rounded-full">Design</span>
+              <time datetime="2026-02-10">Feb 10, 2026</time>
+            </div>
+            <h2 class="text-lg font-semibold text-gray-900 leading-snug">Design Systems in 2026</h2>
+            <p class="text-sm text-gray-500 leading-relaxed flex-1">
+              How large teams maintain visual consistency across dozens of products using shared token libraries and automated audits.
+            </p>
+            <a class="text-sm font-medium text-indigo-600 hover:underline mt-auto" href="#">Read more</a>
+          </article>
+
+          <article class="post-card bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col gap-3 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between text-xs text-gray-400">
+              <span class="bg-violet-50 text-violet-600 font-medium px-2 py-0.5 rounded-full">Science</span>
+              <time datetime="2026-03-18">Mar 18, 2026</time>
+            </div>
+            <h2 class="text-lg font-semibold text-gray-900 leading-snug">Quantum Computing Hits a New Milestone</h2>
+            <p class="text-sm text-gray-500 leading-relaxed flex-1">
+              Researchers demonstrate a 1000-qubit processor with error correction rates low enough to run meaningful algorithms reliably.
+            </p>
+            <a class="text-sm font-medium text-violet-600 hover:underline mt-auto" href="#">Read more</a>
+          </article>
+
+          <article class="post-card bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col gap-3 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between text-xs text-gray-400">
+              <span class="bg-emerald-50 text-emerald-600 font-medium px-2 py-0.5 rounded-full">Technology</span>
+              <time datetime="2026-03-05">Mar 5, 2026</time>
+            </div>
+            <h2 class="text-lg font-semibold text-gray-900 leading-snug">The Rise of Edge Computing</h2>
+            <p class="text-sm text-gray-500 leading-relaxed flex-1">
+              Why companies are moving compute closer to the user — and what that means for latency, cost, and developer workflows.
+            </p>
+            <a class="text-sm font-medium text-emerald-600 hover:underline mt-auto" href="#">Read more</a>
+          </article>
+        </div>
+      </main>
+    </div>
+    <script src="js/app.js" defer="defer"></script>
+  </body>
+</html>
