@@ -1,0 +1,20 @@
+@use '../abstracts' as *;
+
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the common layout of the site
+// -----------------------------------------------------------------------------
+
+body {
+  background-color: $body-bg;
+}
+
+.wrapper {
+  width: 100%;
+  position: relative;
+  overflow: clip;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}

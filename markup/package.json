@@ -1,0 +1,63 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "rimraf assets && webpack watch --progress --color",
+    "build": "webpack --progress --color && npm run prettify:html",
+    "prettify:html": "prettier --check --write \"assets/*.html\""
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "not ie > 0",
+    "not ie_mob > 0",
+    "not dead"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.0",
+    "@jsdevtools/readdir-enhanced": "6.0.4",
+    "@soda/friendly-errors-webpack-plugin": "1.8.1",
+    "babel-loader": "^10.0.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "browser-sync-webpack-plugin": "^2.4.0",
+    "copy-webpack-plugin": "^14.0.0",
+    "core-js": "^3.48.0",
+    "css-loader": "^7.1.2",
+    "cssnano": "^7.1.2",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-webpack": "^0.13.10",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "5.5.5",
+    "eslint-webpack-plugin": "^5.0.2",
+    "globals": "^17.3.0",
+    "group-css-media-queries-loader": "4.3.0",
+    "html-webpack-plugin": "5.6.6",
+    "image-minimizer-webpack-plugin": "^5.0.0",
+    "imagemin-svgo": "11.0.1",
+    "loader-utils": "^2.0.4",
+    "mini-css-extract-plugin": "^2.10.0",
+    "postcss": "^8.5.6",
+    "postcss-loader": "^8.2.0",
+    "postcss-preset-env": "^11.1.2",
+    "postcss-scss": "^4.0.9",
+    "prettier": "^3.8.1",
+    "rimraf": "^6.0.1",
+    "sass": "^1.97.3",
+    "sass-loader": "16.0.6",
+    "sharp": "^0.34.5",
+    "style-loader": "^4.0.0",
+    "stylelint": "^17.1.1",
+    "stylelint-config-sass-guidelines": "^13.0.0",
+    "stylelint-webpack-plugin": "^5.0.1",
+    "terser-webpack-plugin": "^5.3.17",
+    "webpack": "^5.105.4",
+    "webpack-cli": "^6.0.1",
+    "webpack-remove-empty-scripts": "1.1.1"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "latest",
+    "tailwindcss": "latest"
+  },
+  "version": "4.0.0"
+}

@@ -1,0 +1,10 @@
+markup/node_modules/
+package-lock.json
+test/tmp/markup/*
+yarn.lock
+.idea/
+.DS_Store
+# Claude files
+.claude
+CLAUDE.MD
+# Dependencies
