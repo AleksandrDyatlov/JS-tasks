@@ -5,22 +5,31 @@ export default function initFilters() {
   const loading = document.getElementById('loading');
   const error = document.getElementById('error');
 
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      filterButtons.forEach(function(btn) {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-pressed', 'false');
-      });
-      this.classList.add('active');
-      this.setAttribute('aria-pressed', 'true');
+  if (!filterButtons.length || !postsGrid || !loading || !error) return;
 
-      const category = this.dataset.category;
-      loadPosts(category);
-    });
-  });
+  const activeClass = 'active';
+  let activeButton = null;
+  let isLoading = false;
+
+  filterButtons.forEach(function(btn) { btn.addEventListener('click', clickHandler); });
+
+  function clickHandler() {
+    if (isLoading || this === activeButton) return;
+    if (activeButton) {
+      activeButton.classList.remove(activeClass);
+      activeButton.setAttribute('aria-pressed','false');
+    }
+
+    activeButton = this;
+    activeButton.classList.add(activeClass);
+    activeButton.setAttribute('aria-pressed', 'true');
+
+    const category = this.dataset.category;
+    loadPosts(category);
+  }
 
   function loadPosts(category) {
-    filterButtons.forEach(function(btn) { btn.disabled = true; });
+    isLoading = true;
     loading.classList.remove('hidden');
     postsGrid.classList.add('hidden');
     error.classList.add('hidden');
@@ -42,7 +51,7 @@ export default function initFilters() {
         error.classList.remove('hidden');
       })
       .finally(function() {
-        filterButtons.forEach(function(btn) { btn.disabled = false; });
+        isLoading = false;
         loading.classList.add('hidden');
         postsGrid.classList.remove('hidden');
       });
