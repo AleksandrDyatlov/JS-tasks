@@ -2427,34 +2427,44 @@ function initFilters() {
   let activeButton = null;
   let isLoading = false;
   if (!filterButtons.length || !postsGrid || !loading || !error) return;
+  const defaultHTML = postsGrid.innerHTML;
   filterButtons.forEach(function (btn) {
     btn.addEventListener('click', clickHandler);
   });
-  applyURLFilter();
-  function applyURLFilter() {
-    const params = new URLSearchParams(window.location.search);
-    const initialCategory = params.get('category');
-    if (!initialCategory) return;
-    const matchingBtn = [...filterButtons].find(function (btn) {
-      return btn.dataset.category === initialCategory;
-    });
-    if (matchingBtn) {
-      activeButton = matchingBtn;
-      activeButton.classList.add(activeClass);
-      activeButton.setAttribute('aria-pressed', 'true');
-      loadPosts(initialCategory);
+  window.addEventListener('popstate', function (e) {
+    const category = e.state && e.state.category;
+    setActiveButton(category);
+    if (category) {
+      loadPosts(category);
+    } else {
+      postsGrid.innerHTML = defaultHTML;
     }
-  }
-  function clickHandler() {
-    if (isLoading || this === activeButton) return;
+  });
+  applyURLFilter();
+  function setActiveButton(category) {
     if (activeButton) {
       activeButton.classList.remove(activeClass);
       activeButton.setAttribute('aria-pressed', 'false');
     }
-    activeButton = this;
-    activeButton.classList.add(activeClass);
-    activeButton.setAttribute('aria-pressed', 'true');
+    activeButton = [...filterButtons].find(function (btn) {
+      return btn.dataset.category === category;
+    }) || null;
+    if (activeButton) {
+      activeButton.classList.add(activeClass);
+      activeButton.setAttribute('aria-pressed', 'true');
+    }
+  }
+  function applyURLFilter() {
+    const params = new URLSearchParams(window.location.search);
+    const initialCategory = params.get('category');
+    if (!initialCategory) return;
+    setActiveButton(initialCategory);
+    if (activeButton) loadPosts(initialCategory);
+  }
+  function clickHandler() {
+    if (isLoading || this === activeButton) return;
     const category = this.dataset.category;
+    setActiveButton(category);
     updateURL(category);
     loadPosts(category);
   }

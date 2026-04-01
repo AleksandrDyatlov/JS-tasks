@@ -10,9 +10,37 @@ export default function initFilters() {
 
   if (!filterButtons.length || !postsGrid || !loading || !error) return;
 
+  const defaultHTML = postsGrid.innerHTML;
+
   filterButtons.forEach(function(btn) { btn.addEventListener('click', clickHandler); });
 
+  window.addEventListener('popstate', function(e) {
+    const category = e.state && e.state.category;
+    setActiveButton(category);
+    if (category) {
+      loadPosts(category);
+    } else {
+      postsGrid.innerHTML = defaultHTML;
+    }
+  });
+
   applyURLFilter();
+
+  function setActiveButton(category) {
+    if (activeButton) {
+      activeButton.classList.remove(activeClass);
+      activeButton.setAttribute('aria-pressed', 'false');
+    }
+
+    activeButton = [...filterButtons].find(function(btn) {
+      return btn.dataset.category === category;
+    }) || null;
+
+    if (activeButton) {
+      activeButton.classList.add(activeClass);
+      activeButton.setAttribute('aria-pressed', 'true');
+    }
+  }
 
   function applyURLFilter() {
     const params = new URLSearchParams(window.location.search);
@@ -20,30 +48,15 @@ export default function initFilters() {
 
     if (!initialCategory) return;
 
-    const matchingBtn = [...filterButtons].find(function(btn) {
-      return btn.dataset.category === initialCategory;
-    });
-
-    if (matchingBtn) {
-      activeButton = matchingBtn;
-      activeButton.classList.add(activeClass);
-      activeButton.setAttribute('aria-pressed', 'true');
-      loadPosts(initialCategory);
-    }
+    setActiveButton(initialCategory);
+    if (activeButton) loadPosts(initialCategory);
   }
 
   function clickHandler() {
     if (isLoading || this === activeButton) return;
-    if (activeButton) {
-      activeButton.classList.remove(activeClass);
-      activeButton.setAttribute('aria-pressed','false');
-    }
-
-    activeButton = this;
-    activeButton.classList.add(activeClass);
-    activeButton.setAttribute('aria-pressed', 'true');
 
     const category = this.dataset.category;
+    setActiveButton(category);
     updateURL(category);
     loadPosts(category);
   }
